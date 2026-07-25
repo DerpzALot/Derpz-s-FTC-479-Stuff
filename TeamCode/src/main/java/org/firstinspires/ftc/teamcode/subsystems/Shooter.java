@@ -43,8 +43,8 @@ public class Shooter extends SubsystemBase {
         this.rightShooter.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         this.leftShooter.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
-        this.rightShooter.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        this.leftShooter.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        this.rightShooter.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        this.leftShooter.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         this.rightShooter.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         this.leftShooter.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
@@ -58,7 +58,7 @@ public class Shooter extends SubsystemBase {
     }
 
     public void periodic() {
-        double power = this.controller.calculate(rightShooter.getVelocity()) + kS * (COMPENSATE / voltageSensor.getVoltage());
+        double power = this.controller.calculate(leftShooter.getVelocity()) + kS * (COMPENSATE / voltageSensor.getVoltage());
 
         PanelsTelemetry.INSTANCE.getTelemetry().addData("Target", this.controller.getTarget());
         PanelsTelemetry.INSTANCE.getTelemetry().addData("Velocity", this.getVelocity());
@@ -90,11 +90,11 @@ public class Shooter extends SubsystemBase {
     }
 
     public synchronized double getVelocity() {
-        return this.rightShooter.getVelocity();
+        return this.leftShooter.getVelocity();
     }
 
     public synchronized double getAmps() {
-        return this.rightShooter.getCurrent(CurrentUnit.AMPS);
+        return this.leftShooter.getCurrent(CurrentUnit.AMPS);
     }
 
     public synchronized boolean isFinished() {
