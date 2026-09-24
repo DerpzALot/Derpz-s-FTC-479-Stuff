@@ -38,8 +38,6 @@ import org.firstinspires.ftc.teamcode.subsystems.Shooter;
 import org.firstinspires.ftc.teamcode.subsystems.Transfer;
 import org.firstinspires.ftc.teamcode.utils.commands.GamepadTrigger;
 
-import kotlin.time.Instant;
-
 @Configurable
 public class CommandRobot {
     public static long SHOOT_WAIT = 500;
@@ -71,7 +69,7 @@ public class CommandRobot {
             else pose = BLUE_CLOSE_START;
         } else if (color.equals("red")) {
             if (type.equals("far")) pose = RED_FAR_START;
-            else pose = RED_FAR_START;
+            else pose = RED_CLOSE_START;
         }
 
         this.drive = new Drivetrain(hwMap, pose, this.gamepad1, "teleop", color);
