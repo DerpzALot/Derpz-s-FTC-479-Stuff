@@ -44,7 +44,7 @@ public class ShooterTest extends OpModeCore {
             PanelsTelemetry.INSTANCE.getTelemetry().debug("Error", this.shooter.getError());
 
             PanelsTelemetry.INSTANCE.getTelemetry().addData("Left Voltage", this.shooter.getleftVoltage());
-            PanelsTelemetry.INSTANCE.getTelemetry().addData("Right Voltage", this.shooter.getRightVoltage());
+            //PanelsTelemetry.INSTANCE.getTelemetry().addData("Right Voltage", this.shooter.getRightVoltage());
 
 
             PanelsTelemetry.INSTANCE.getTelemetry().update();

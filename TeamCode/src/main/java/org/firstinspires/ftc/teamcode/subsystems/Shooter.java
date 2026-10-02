@@ -30,25 +30,26 @@ public class Shooter extends SubsystemBase {
     public static double kF = 0.03;
     public static double kS = 0;
 
-    private final DcMotorEx rightShooter, leftShooter;
+    //private final DcMotorEx rightShooter;
+    private final DcMotorEx leftShooter;
     private final VoltageSensor voltageSensor;
     private final PIDController controller;
 
     public Shooter(final HardwareMap hwMap) {
         this.voltageSensor = hwMap.get(VoltageSensor.class, "Control Hub");
 
-        this.rightShooter = hwMap.get(DcMotorEx.class, "rightShooter");
+        //this.rightShooter = hwMap.get(DcMotorEx.class, "rightShooter");
         this.leftShooter = hwMap.get(DcMotorEx.class, "leftShooter");
 
-        this.rightShooter.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        //this.rightShooter.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         this.leftShooter.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
-        this.rightShooter.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        //this.rightShooter.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         this.leftShooter.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        this.rightShooter.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        //this.rightShooter.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         this.leftShooter.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
-        this.rightShooter.setDirection(DcMotorSimple.Direction.REVERSE);
+        //this.rightShooter.setDirection(DcMotorSimple.Direction.REVERSE);
         this.leftShooter.setDirection(DcMotorSimple.Direction.FORWARD);
 
         this.controller = new PIDController(Shooter.kP, Shooter.kI, Shooter.kD, Shooter.kF);
@@ -67,15 +68,15 @@ public class Shooter extends SubsystemBase {
         PanelsTelemetry.INSTANCE.getTelemetry().addData("Amps", this.getAmps());
         PanelsTelemetry.INSTANCE.getTelemetry().update();
 
-        this.rightShooter.setPower(Math.max(power, 0));
+        //this.rightShooter.setPower(Math.max(power, 0));
         this.leftShooter.setPower(Math.max(power, 0));
 
         this.controller.setCoefficients(kP, kI, kD, kF);
     }
 
-    public double getRightVoltage() {
-        return this.rightShooter.getPower();
-    }
+    //public double getRightVoltage() {
+    //    return this.rightShooter.getPower();
+    //}
 
     public double getleftVoltage() {
         return this.leftShooter.getPower();

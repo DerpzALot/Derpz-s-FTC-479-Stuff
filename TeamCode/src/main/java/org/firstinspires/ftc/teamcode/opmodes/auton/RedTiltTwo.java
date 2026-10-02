@@ -45,19 +45,14 @@ public class RedTiltTwo extends OpModeCore {
                 new SequentialCommandGroup(
                         new PathCommand(this.robot, this.trajectories.shootFirst, SCORE_SPEED),
                         new WaitCommand(FIRST_SHOOT_WAIT),
-                        robot.shoot(),
 
                         new PathCommand(this.robot, this.trajectories.intakeFirst, INTAKE_SPEED),
-                        new TransferAccept(this.robot.getIntake(), this.robot.getTransfer(), INTAKE_DURATION),
 
                         new PathCommand(this.robot, this.trajectories.shootSecond, SCORE_SPEED),
-                        robot.shoot(),
 
                         new PathCommand(this.robot, this.trajectories.intakeSecond, INTAKE_SPEED),
-                        new TransferAccept(this.robot.getIntake(), this.robot.getTransfer(), INTAKE_DURATION),
 
                         new PathCommand(this.robot, this.trajectories.shootThird, SCORE_SPEED),
-                        robot.shoot(),
 
                         new PathCommand(this.robot, this.trajectories.park, NORMAL_SPEED)
                 )

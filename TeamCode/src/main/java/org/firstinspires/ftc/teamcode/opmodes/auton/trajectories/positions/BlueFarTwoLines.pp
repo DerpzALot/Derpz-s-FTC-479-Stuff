@@ -81,7 +81,7 @@
               "name": "intakeHP",
               "startDeg": 197,
               "endDeg": 180,
-              "index": 2
+              "index": 5
             },
             "controlPoints": [],
             "color": "#59DA8D"
@@ -95,7 +95,7 @@
             "reverse":false,
             "startDeg":180,
             "endDeg":201,
-            "index":7
+            "index":6
          },
          "controlPoints":[
 
