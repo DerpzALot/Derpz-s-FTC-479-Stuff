@@ -1,0 +1,67 @@
+package org.firstinspires.ftc.teamcode.opmodes.auton;
+
+import com.arcrobotics.ftclib.command.CommandScheduler;
+import com.arcrobotics.ftclib.command.SequentialCommandGroup;
+import com.arcrobotics.ftclib.command.WaitCommand;
+import com.bylazar.configurables.annotations.Configurable;
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+
+import org.firstinspires.ftc.teamcode.CommandRobot;
+import org.firstinspires.ftc.teamcode.commands.transfer.TransferAccept;
+import org.firstinspires.ftc.teamcode.opmodes.auton.trajectories.RedTiltTwoTrajectories;
+import org.firstinspires.ftc.teamcode.utils.commands.OpModeCore;
+import org.firstinspires.ftc.teamcode.utils.commands.PathCommand;
+
+@Configurable
+@Autonomous(name = "RedTiltTwo")
+public class RedTiltTwo extends OpModeCore {
+    public static double SCORE_SPEED = 0.70;
+    public static double NORMAL_SPEED = 0.85;
+    public static double INTAKE_SPEED = 0.85;
+    public static int SHOOT_DURATION = 1500;
+    public static int INTAKE_DURATION = 1700;
+    public static int SHOOT_WAIT = 100;
+
+    public static int FIRST_SHOOT_WAIT = 1000;
+
+    private CommandRobot robot;
+    private RedTiltTwoTrajectories trajectories;
+
+    @Override
+    public void initialize() {
+        this.trajectories = new RedTiltTwoTrajectories();
+
+        this.robot = new CommandRobot(super.hardwareMap, super.gamepad1, this.trajectories.getStart(), "red");
+    }
+
+    @Override
+    public void runOpMode() {
+        CommandScheduler.getInstance().enable();
+        this.initialize();
+
+        super.waitForStart();
+
+        CommandScheduler.getInstance().schedule(
+                new SequentialCommandGroup(
+                        new PathCommand(this.robot, this.trajectories.shootFirst, SCORE_SPEED),
+                        new WaitCommand(FIRST_SHOOT_WAIT),
+
+                        new PathCommand(this.robot, this.trajectories.intakeFirst, INTAKE_SPEED),
+
+                        new PathCommand(this.robot, this.trajectories.shootSecond, SCORE_SPEED),
+
+                        new PathCommand(this.robot, this.trajectories.intakeSecond, INTAKE_SPEED),
+
+                        new PathCommand(this.robot, this.trajectories.shootThird, SCORE_SPEED),
+
+                        new PathCommand(this.robot, this.trajectories.park, NORMAL_SPEED)
+                )
+        );
+
+        while (opModeIsActive()) {
+            CommandScheduler.getInstance().run();
+        }
+
+        super.end();
+    }
+}
